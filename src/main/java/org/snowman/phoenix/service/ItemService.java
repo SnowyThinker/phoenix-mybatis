@@ -3,6 +3,7 @@ package org.snowman.phoenix.service;
 import io.github.snowthinker.Id.SnowFlaker;
 import io.github.snowthinker.mh.MybatisSqlHelper;
 import io.github.snowthinker.model.PojoHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.snowman.phoenix.entity.Item;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ItemService {
 
     @Autowired
@@ -30,10 +32,12 @@ public class ItemService {
     private SqlSessionFactory sqlSessionFactory;
 
     public void batchAdd() {
-        int batchSize = 100;
+        int batchSize = 10000;
+
+        long beginTime = System.currentTimeMillis();
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        for(int batch=0; batch<100; batch++) {
+        for(int batch=0; batch<1000; batch++) {
 
             List<String> sqlList = new ArrayList<>();
             for(int idx = 0; idx < batchSize; idx++) {
@@ -45,5 +49,8 @@ public class ItemService {
 
             phoenixBatchMapper.batchSave(sqlList);
         }
+
+        long cost = System.currentTimeMillis() - beginTime;
+        log.info("Cost of 100000 records: {}ms", cost);
     }
 }

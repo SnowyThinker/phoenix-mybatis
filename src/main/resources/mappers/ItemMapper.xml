@@ -6,7 +6,7 @@
 <mapper namespace="org.snowman.phoenix.mapper.ItemMapper">
 
     <insert id="save">
-        UPSERT INTO ITEM
+        UPSERT INTO TEST.ITEM
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="null != id">
                 ID,

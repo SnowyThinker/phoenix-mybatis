@@ -26,6 +26,8 @@ public class PhoenixBatchMapper {
     }
 
     public void batchSave(List<String> sqlList) {
+        long beginTime = System.currentTimeMillis();
+
         Connection conn = null;
         Statement stmt = null;
 
@@ -37,6 +39,9 @@ public class PhoenixBatchMapper {
                 stmt.executeUpdate(sql);
             }
             conn.commit();
+
+            long cost = System.currentTimeMillis() - beginTime;
+            log.info("Cost of {} record: {}ms", sqlList.size(), cost);
         } catch(Exception e) {
             log.error("batchSave error: {}", e);
         } finally{
@@ -55,5 +60,6 @@ public class PhoenixBatchMapper {
                 }
             }
         }
+
     }
 }
