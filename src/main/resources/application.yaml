@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:phoenix:master
+    driver-class-name: org.apache.phoenix.jdbc.PhoenixDriver
+    druid:
+      max-wait: 30000
+      query-timeout: 10
+      validation-query: SELECT 1
+      use-global-data-source-stat: true
+
+mybatis:
+  mapperLocations: classpath:/mappers/**/*.xml

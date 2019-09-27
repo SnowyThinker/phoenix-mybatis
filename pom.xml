@@ -11,8 +11,8 @@
     <properties>
         <encoding>UTF-8</encoding>
         <java.version>1.8</java.version>
-        <spring.boot.version>2.1.2.RELEASE</spring.boot.version>
-        <start-class>org.snowman.app.WordCountApp</start-class>
+        <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
+        <start-class>org.snowman.phoenix.PhoenixMyBatisApplication</start-class>
     </properties>
 
     <dependencyManagement>
@@ -50,12 +50,37 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
-
         <dependency>
+            <groupId>org.apache.phoenix</groupId>
+            <artifactId>phoenix-core</artifactId>
+            <version>5.0.0-HBase-2.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--<dependency>
             <groupId>org.apache.phoenix</groupId>
             <artifactId>phoenix-server-client</artifactId>
             <version>4.7.0-HBase-1.1</version>
-        </dependency>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-annotations</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -71,6 +96,17 @@
             <groupId>io.github.snowthinker</groupId>
             <artifactId>mybatis-helper</artifactId>
             <version>0.0.1-RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

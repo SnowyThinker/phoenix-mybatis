@@ -1,6 +1,7 @@
 package org.snowman.phoenix.mapper;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -13,16 +14,22 @@ import java.util.List;
 @Slf4j
 public class PhoenixBatchMapper {
 
-    private static final String DRIVER_CLASS = "";
-
+    @Value("${spring.datasource.url}")
     private String hbaseUrl;
+
+    static {
+        try {
+            Class.forName("org.apache.phoenix.jdbc.PhoenixDriver");
+        } catch (ClassNotFoundException e) {
+           log.error("Load Phoenix Driver error: ", e);
+        }
+    }
 
     public void batchSave(List<String> sqlList) {
         Connection conn = null;
         Statement stmt = null;
 
         try{
-            Class.forName(DRIVER_CLASS);
             conn = DriverManager.getConnection(hbaseUrl);
             stmt = conn.createStatement();
 
